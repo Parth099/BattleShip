@@ -13,10 +13,10 @@ it("Ship Factory produces Correct output for invalid Size", () => {
 
 //testing hit
 it("Ship Factory sinks ship Length = 3, from 3 diff hits", () => {
-  const length = 1;
+  const length = 3;
   const Ship = shipFactory(length);
   for (let k = 0; k < length; k++) {
-    Ship.hit(k);
+    Ship.hit();
   }
   expect(Ship.isSunk()).toBeTruthy();
 });
@@ -24,13 +24,23 @@ it("Ship Factory sinks ship Length = 3, from 3 diff hits", () => {
 it("Ship Factory sinks ship Length = 4, from 2 diff hits", () => {
   const length = 4;
   const Ship = shipFactory(length);
-  Ship.hit(0);
-  Ship.hit(2);
+  Ship.hit();
+  Ship.hit();
   expect(Ship.isSunk()).toBeFalsy();
 });
 
 it("Ship Factory sinks ship Length = 1", () => {
   const Ship = shipFactory(1);
-  Ship.hit(0);
+  Ship.hit();
   expect(Ship.isSunk()).toBeTruthy();
+});
+
+it("tests failure to hit after sunk", () => {
+  const length = 3;
+  const Ship = shipFactory(length);
+  for (let k = 0; k < length; k++) {
+    Ship.hit();
+  }
+  expect(Ship.isSunk()).toBeTruthy();
+  expect(Ship.hit()).toBeFalsy();
 });
