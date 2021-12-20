@@ -116,3 +116,22 @@ it("ship is vertical at (3, 5)  L = 3", () => {
 
     expect(GB.receiveAttack(3, 5)).toBe(false);
 });
+
+//isGameover testing:
+it("2 ships placed, testing Gameover", () => {
+    const GB = gameBoard();
+
+    expect(GB.allShipsDown()).toBeTruthy(); //if no ships exists all of then are sunken
+    GB.placeShip(3, 5, (shipLength = 3), true);
+    GB.placeShip(1, 2, (shipLength = 2), false);
+
+    expect(GB.allShipsDown()).toBeFalsy();
+    GB.receiveAttack(3, 5);
+    GB.receiveAttack(4, 5);
+    GB.receiveAttack(5, 5);
+    expect(GB.allShipsDown()).toBeFalsy();
+
+    GB.receiveAttack(1, 2);
+    GB.receiveAttack(1, 3);
+    expect(GB.allShipsDown()).toBeTruthy();
+});

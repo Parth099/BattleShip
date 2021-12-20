@@ -59,7 +59,7 @@ const gameBoard = () => {
         //can only return true since it will be a valid guess/move
         return true;
     };
-    const allShipsDown = () => shipMap.size === 0;
+    const allShipsDown = () => shipMap.size === 0; //no need for O(n * n) search
 
     const hashShip = (shipToHash, shipID, shipMap) => {
         shipMap.set(shipID, shipToHash);
