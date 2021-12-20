@@ -40,7 +40,25 @@ const gameBoard = () => {
         }
         return isPlaced;
     };
-    const receiveAttack = (x, y) => {};
+    const receiveAttack = (x, y) => {
+        const cellID = board[x][y];
+        if (cellID < 0) {
+            return false;
+        } else if (cellID == 0) {
+            board[x][y] = -1;
+        } else {
+            const shipHit = shipMap.get(cellID);
+            shipHit.hit();
+
+            if (shipHit.isSunk()) {
+                shipMap.delete(cellID);
+            }
+
+            board[x][y] = -2;
+        }
+        //can only return true since it will be a valid guess/move
+        return true;
+    };
     const allShipsDown = () => shipMap.size === 0;
 
     const hashShip = (shipToHash, shipID, shipMap) => {

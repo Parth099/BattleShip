@@ -98,3 +98,21 @@ it("Double Ship Valid Placement", () => {
     expect(GB.board[0][1]).toBe(2);
     expect(GB.board[0][2]).toBe(2);
 });
+
+//receive attack tests
+//tests all possible cases {SHIP HIT, SHIP MISS, SAME COORD Calls}
+it("ship is vertical at (3, 5)  L = 3", () => {
+    const GB = gameBoard();
+    const shipLen = 3;
+    expect(GB.placeShip(3, 5, shipLen, true)).toBe(true);
+
+    const resultFire = [GB.receiveAttack(4, 5), GB.receiveAttack(5, 5), GB.receiveAttack(3, 5), GB.receiveAttack(1, 5), GB.receiveAttack(1, 5)];
+    expect(resultFire).toEqual([true, true, true, true, false]);
+    expect(GB.board[3][5]).toBe(-2); //hit
+    expect(GB.board[4][5]).toBe(-2);
+    expect(GB.board[5][5]).toBe(-2);
+
+    expect(GB.board[1][5]).toBe(-1); //miss
+
+    expect(GB.receiveAttack(3, 5)).toBe(false);
+});
