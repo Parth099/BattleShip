@@ -1,0 +1,79 @@
+@font-face {
+    font-family: "DeathStar";
+    src: url("./WebFont/DeathStar.woff") format("woff"), url("./WebFont/DeathStar.woff2") format("woff2"),
+        url("./WebFont/DeathStar.otf") format("otf");
+}
+@font-face {
+    font-family: "CasanovaScotia";
+    src: url("./WebFont/CasanovaScotia.ttf") format("tff"), url("./WebFont/CasanovaScotia.woff") format("woff"),
+        url("./WebFont/CasanovaScotia.woff2") format("woff2");
+}
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --theme1: black;
+    --theme2: #ffc40a;
+    --box-sz: 3rem;
+    --br-rad: 10px;
+
+    /*ship colors*/
+    --c1: ;
+    --c2: ;
+    --c3: ;
+    --c4: ;
+    --c5: ;
+}
+body {
+    background-color: var(--theme1);
+}
+.head-title {
+    background-color: black;
+    color: white;
+    font-size: 3.2rem;
+    text-align: center;
+    font-family: "DeathStar", Arial, Helvetica, sans-serif;
+    border-bottom: 5px var(--theme2) solid;
+    margin-bottom: 50px;
+}
+.intro-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.intro-placement-grid-cont {
+    padding-right: 50px;
+    border-right: 2px var(--theme2) solid;
+}
+#gamegrid {
+    width: calc(var(--box-sz) * 10);
+    height: calc(var(--box-sz) * 10);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 196, 10, 1) 100%);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+}
+.gamegrid-cell {
+    width: var(--box-sz);
+    height: var(--box-sz);
+    border: rgb(0, 0, 0) 0.5px solid;
+}
+.intro-instructions-cont {
+    margin-left: 50px;
+    width: calc(var(--box-sz) * 6);
+    height: calc(var(--box-sz) * 10);
+    background: linear-gradient(225deg, rgba(255, 255, 255, 1) 0%, rgba(255, 196, 10, 1) 100%);
+    border-radius: var(--br-rad);
+}
+.instructions-text {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+}
+.theta {
+    background: var(--c1);
+}
