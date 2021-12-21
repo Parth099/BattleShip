@@ -19,11 +19,11 @@
     --br-rad: 10px;
 
     /*ship colors*/
-    --c1: ;
-    --c2: ;
-    --c3: ;
-    --c4: ;
-    --c5: ;
+    --c1: #40b3a2;
+    --c2: #c38d9d;
+    --c3: #5cdb94;
+    --c4: #fc4444;
+    --c5: #557a95;
 }
 body {
     background-color: var(--theme1);
@@ -59,11 +59,17 @@ body {
     width: var(--box-sz);
     height: var(--box-sz);
     border: rgb(0, 0, 0) 0.5px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
 }
+
 .intro-instructions-cont {
     margin-left: 50px;
     width: calc(var(--box-sz) * 6);
-    height: calc(var(--box-sz) * 10);
+    min-height: calc(var(--box-sz) * 10);
     background: linear-gradient(225deg, rgba(255, 255, 255, 1) 0%, rgba(255, 196, 10, 1) 100%);
     border-radius: var(--br-rad);
 }
@@ -74,6 +80,29 @@ body {
     font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
     font-size: 2rem;
 }
-.theta {
+.gamegrid-cell.c1 {
     background: var(--c1);
+}
+.gamegrid-cell.c2 {
+    background: var(--c2);
+}
+.gamegrid-cell.c3 {
+    background: var(--c3);
+}
+.gamegrid-cell.c4 {
+    background: var(--c4);
+}
+.gamegrid-cell.c5 {
+    background: var(--c5);
+}
+.DragDrop-main-con {
+}
+.dragDrop-ship {
+    width: min-content;
+    height: var(--box-sz);
+    margin: 10px;
+    display: flex;
+}
+.gamegrid-text.invis {
+    display: none;
 }
