@@ -106,3 +106,6 @@ body {
 .gamegrid-text.invis {
     display: none;
 }
+.potential-drop {
+    background: #8dd4f9;
+}
