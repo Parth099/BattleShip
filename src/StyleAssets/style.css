@@ -68,7 +68,7 @@ body {
 
 .intro-instructions-cont {
     margin-left: 50px;
-    width: calc(var(--box-sz) * 6);
+    width: calc(var(--box-sz) * 6.5);
     min-height: calc(var(--box-sz) * 10);
     background: linear-gradient(225deg, rgba(255, 255, 255, 1) 0%, rgba(255, 196, 10, 1) 100%);
     border-radius: var(--br-rad);
@@ -95,13 +95,18 @@ body {
 .gamegrid-cell.c5 {
     background: var(--c5);
 }
-.DragDrop-main-con {
+.DragDrop-main-cont {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
 }
 .dragDrop-ship {
     width: min-content;
-    height: var(--box-sz);
-    margin: 10px;
+    margin: 5px;
     display: flex;
+}
+.dragDrop-ship.vertical {
+    flex-direction: column;
 }
 .gamegrid-text.invis {
     display: none;
