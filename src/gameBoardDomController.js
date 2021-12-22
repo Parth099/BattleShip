@@ -1,8 +1,11 @@
 export default class gameBoardDom {
-    constructor(domString, gameBoard) {
+    constructor(domString, gameBoard, shipsInfo) {
         this.domString = domString;
         this.boardSize = 10;
-        this.ganeboard = gameBoard;
+        this.gameBoard = gameBoard;
+
+        this.shipsInfoMap = new Map();
+        shipsInfo.forEach((s) => this.shipsInfoMap.set(s.shipName, s));
     }
     init() {
         //const textNode = "gamegrid-text";
@@ -33,5 +36,23 @@ export default class gameBoardDom {
                 attachPoint.appendChild(cell);
             }
         }
+    }
+    placeShip(x, y, type, isVert, colorSpace) {
+        const shipData = this.shipsInfoMap.get(type);
+        console.log(this.gameBoard.board);
+        const placementResult = this.gameBoard.placeShip(x, y, shipData.shipLength, isVert);
+        console.log(x, y, placementResult);
+        if (placementResult) {
+            if (isVert) {
+                for (let i = 0; i < shipData.shipLength; i++) {
+                    colorSpace[(x + i) * 10 + y].classList.add(shipData.colorClass);
+                }
+            } else {
+                for (let i = 0; i < shipData.shipLength; i++) {
+                    colorSpace[x * 10 + y + i].classList.add(shipData.colorClass);
+                }
+            }
+        }
+        return placementResult;
     }
 }

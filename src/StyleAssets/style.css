@@ -80,6 +80,14 @@ body {
     font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
     font-size: 2rem;
 }
+.instructions-subtext {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
 .gamegrid-cell.c1 {
     background: var(--c1);
 }
@@ -113,4 +121,16 @@ body {
 }
 .potential-drop {
     background: #8dd4f9;
+}
+.void {
+    display: none;
+}
+.ownership-title-cont {
+    display: inline;
+    background: var(--theme2);
+    padding: 0px 4px;
+}
+.ownership-title {
+    display: inline;
+    font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
 }

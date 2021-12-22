@@ -23,7 +23,7 @@ const gameBoard = () => {
                 board[x + i][y] = rollingShipID;
             }
             isPlaced = true;
-        } else if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE - shipLength) {
+        } else if (x >= 0 && x < BOARD_SIZE && y >= 0 && y <= BOARD_SIZE - shipLength) {
             for (let i = 0; i < shipLength; i++) {
                 if (board[x][y + i]) {
                     return false;

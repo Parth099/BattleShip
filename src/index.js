@@ -6,10 +6,7 @@ import gameBoardDom from "./gameBoardDomController";
 import gameBoard from "./gameboardFactory";
 import DragDropShip from "./DragDropShips";
 
-const GBDomPlayer = new gameBoardDom("#gamegrid", {});
-GBDomPlayer.init();
-
-const shipsToPlace = [
+const shipsInfo = [
     {
         shipName: "destroyer",
         shipLength: 2,
@@ -36,6 +33,11 @@ const shipsToPlace = [
         colorClass: "c5",
     },
 ];
+
+const gameBoardPlayer = gameBoard();
+const GBDomPlayer = new gameBoardDom("#gamegrid", gameBoardPlayer, shipsInfo);
+GBDomPlayer.init();
+
 const boardNodes = document.querySelectorAll(".gamegrid-cell");
-const dragDropController = new DragDropShip(".DragDrop-main-cont", shipsToPlace, boardNodes);
+const dragDropController = new DragDropShip(".DragDrop-main-cont", shipsInfo, boardNodes, GBDomPlayer);
 dragDropController.init();

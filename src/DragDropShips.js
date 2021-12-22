@@ -1,5 +1,5 @@
 export default class DragDropShip {
-    constructor(initialDomString, shipsToPlace, boardNodes) {
+    constructor(initialDomString, shipsToPlace, boardNodes, boardDomController) {
         this.initialDomString = initialDomString;
 
         //array of objects
@@ -17,7 +17,9 @@ export default class DragDropShip {
             node: undefined,
             x: -1,
             y: -1,
+            isValid: false,
         };
+        this.boardDomController = boardDomController;
     }
     init() {
         const initialLoction = document.querySelector(this.initialDomString);
@@ -59,26 +61,35 @@ export default class DragDropShip {
     }
     addListeners(DomNode) {
         //mark the dragging element so we can target it later.
-        const dragStartOpacity = (evt) => {
+        const dragStartEvent = (evt) => {
             evt.target.classList.add("dragging");
+            this.draggableData.isValid = false;
         };
-        const dragEndOpacity = (evt) => {
+        const dragEndEvent = (evt) => {
             evt.target.classList.remove("dragging");
             const node = this.draggableData.node;
-            if (typeof node === "undefined") {
+            if (typeof node === "undefined" || !this.draggableData.isValid) {
                 return;
             } else {
+                let [x, y] = [-1, -1];
                 if (node.classList.contains("vertical")) {
-                    console.log(this.draggableData.x - this.draggableData.index, this.draggableData.y - 0);
+                    x = this.draggableData.x - this.draggableData.index;
+                    y = this.draggableData.y - 0;
                 } else {
-                    console.log(this.draggableData.x - 0, this.draggableData.y - this.draggableData.index);
+                    x = this.draggableData.x - 0;
+                    y = this.draggableData.y - this.draggableData.index;
+                }
+                const result = this.boardDomController.placeShip(x, y, node.dataset.type, node.classList.contains("vertical"), this.boardNodes);
+                if (result) {
+                    node.classList.add("void");
+                    node.remove();
                 }
             }
             //calling for ship placement
         };
 
-        DomNode.addEventListener("dragstart", dragStartOpacity);
-        DomNode.addEventListener("dragend", dragEndOpacity);
+        DomNode.addEventListener("dragstart", dragStartEvent);
+        DomNode.addEventListener("dragend", dragEndEvent);
         DomNode.addEventListener("mousedown", (e) => {
             this.draggableData.index = e.target.dataset.index;
             this.draggableData.node = e.target.parentNode;
@@ -90,8 +101,11 @@ export default class DragDropShip {
             e.target.classList.add("potential-drop");
             this.draggableData.x = e.target.dataset.x;
             this.draggableData.y = e.target.dataset.y;
+            this.draggableData.isValid = true;
         };
-        const dragLeaveEvent = (e) => e.target.classList.remove("potential-drop");
+        const dragLeaveEvent = (e) => {
+            e.target.classList.remove("potential-drop");
+        };
         nodes.forEach((node) => {
             node.addEventListener("dragenter", dragEnterEvent);
             node.addEventListener("dragleave", dragLeaveEvent);
