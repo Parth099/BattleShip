@@ -1,5 +1,5 @@
 export default class DragDropShip {
-    constructor(initialDomString, shipsToPlace, boardNodes, boardDomController) {
+    constructor(initialDomString, shipsToPlace, boardNodes, boardDomController, callback) {
         this.initialDomString = initialDomString;
 
         //array of objects
@@ -20,6 +20,8 @@ export default class DragDropShip {
             isValid: false,
         };
         this.boardDomController = boardDomController;
+        this.endStage = callback;
+        this.shipsPlaced = 0;
     }
     init() {
         const initialLoction = document.querySelector(this.initialDomString);
@@ -55,8 +57,6 @@ export default class DragDropShip {
             this.addListeners(shipContainer);
             initialLoction.appendChild(shipContainer);
         });
-        const dragOverEvent = (e) => console.log("S: " + e.target.dataset);
-        const dragEnterEvent = (e) => console.log("E: " + e.target.dataset);
         this.addBoardListeners(this.boardNodes);
     }
     addListeners(DomNode) {
@@ -83,6 +83,11 @@ export default class DragDropShip {
                 if (result) {
                     node.classList.add("void");
                     node.remove();
+                    this.shipsPlaced++;
+                }
+
+                if (this.shipsPlaced === this.shipsToPlace.length) {
+                    this.endStage();
                 }
             }
             //calling for ship placement

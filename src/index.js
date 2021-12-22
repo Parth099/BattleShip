@@ -38,6 +38,12 @@ const gameBoardPlayer = gameBoard();
 const GBDomPlayer = new gameBoardDom("#gamegrid", gameBoardPlayer, shipsInfo);
 GBDomPlayer.init();
 
+const dragDropCallback = () => {
+    const dragDropPane = document.querySelector(".intro-instructions-cont");
+    if (dragDropPane) {
+        dragDropPane.classList.add("void");
+    }
+};
 const boardNodes = document.querySelectorAll(".gamegrid-cell");
-const dragDropController = new DragDropShip(".DragDrop-main-cont", shipsInfo, boardNodes, GBDomPlayer);
+const dragDropController = new DragDropShip(".DragDrop-main-cont", shipsInfo, boardNodes, GBDomPlayer, dragDropCallback);
 dragDropController.init();

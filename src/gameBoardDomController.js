@@ -39,9 +39,7 @@ export default class gameBoardDom {
     }
     placeShip(x, y, type, isVert, colorSpace) {
         const shipData = this.shipsInfoMap.get(type);
-        console.log(this.gameBoard.board);
         const placementResult = this.gameBoard.placeShip(x, y, shipData.shipLength, isVert);
-        console.log(x, y, placementResult);
         if (placementResult) {
             if (isVert) {
                 for (let i = 0; i < shipData.shipLength; i++) {
