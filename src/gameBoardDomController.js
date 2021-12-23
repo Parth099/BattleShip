@@ -39,20 +39,26 @@ export default class gameBoardDom {
     placeShip(x, y, type, isVert, colorSpace) {
         const shipData = this.shipsInfoMap.get(type);
         const placementResult = this.gameBoard.placeShip(x, y, shipData.shipLength, isVert);
+        let loc;
         if (placementResult) {
             if (isVert) {
                 for (let i = 0; i < shipData.shipLength; i++) {
-                    colorSpace[(x + i) * 10 + y].classList.add(shipData.colorClass);
+                    loc = (x + i) * 10 + y;
+                    colorSpace[loc].classList.add(shipData.colorClass);
+                    colorSpace[loc].dataset.ship = type;
                 }
             } else {
                 for (let i = 0; i < shipData.shipLength; i++) {
-                    colorSpace[x * 10 + y + i].classList.add(shipData.colorClass);
+                    loc = x * 10 + y + i;
+                    colorSpace[loc].classList.add(shipData.colorClass);
+                    colorSpace[loc].dataset.ship = type;
                 }
             }
         }
         return placementResult;
     }
-    attachAttackListener(nodeList) {
+    attachAttackListener(domString) {
+        const nodeList = document.querySelectorAll(domString);
         const clickEvent = (e) => {
             let node = e.target;
             if (node.classList.contains("gamegrid-text")) {
@@ -61,7 +67,7 @@ export default class gameBoardDom {
             }
             let [x, y] = [node.dataset.x, node.dataset.y];
             //this.receiveAttack(x, y);
-            this.receiveAttack(x, y, boardNode);
+            this.receiveAttack(x, y, node);
         };
 
         nodeList.forEach((node) => {
@@ -71,6 +77,21 @@ export default class gameBoardDom {
 
     receiveAttack(x, y, boardNode) {
         const attackResult = this.gameBoard.receiveAttack(x, y);
-        console.log(attackResult);
+        if (attackResult > 0) {
+            boardNode.classList.add("hit");
+
+            //this field will be invalid Enemy ships which cannot be seen on the DOM
+            if (boardNode.dataset.ship) {
+                let shipDataObj = this.shipsInfoMap.get(boardNode.dataset.ship);
+                boardNode.classList.remove(shipDataObj.colorClass);
+            }
+        } else if (attackResult == 0) {
+            boardNode.classList.add("miss");
+        }
+
+        if (attackResult >= 0) {
+            return true;
+        }
+        return false;
     }
 }

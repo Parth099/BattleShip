@@ -5,6 +5,7 @@ import "./StyleAssets/style.css";
 import gameBoardDom from "./gameBoardDomController";
 import gameBoard from "./gameboardFactory";
 import DragDropShip from "./DragDropShips";
+import cpuPlayer from "./cpuPlayer";
 
 const shipsInfo = [
     {
@@ -40,12 +41,26 @@ GBDomPlayer.init();
 
 const dragDropCallback = () => {
     const dragDropPane = document.querySelector(".intro-instructions-cont");
-    if (dragDropPane) {
-        dragDropPane.classList.add("void");
-    }
+    const enemyBoardCont = document.querySelector(".intro-placement-grid-cont.right");
+    dragDropPane.classList.add("void");
+    enemyBoardCont.classList.remove("void");
+
+    initAiOpponentDom();
 };
+
+//dragDrop 
 const boardNodes = document.querySelectorAll(".gamegrid-cell");
 const dragDropController = new DragDropShip(".DragDrop-main-cont", shipsInfo, boardNodes, GBDomPlayer, dragDropCallback);
 dragDropController.init();
 
-GBDomPlayer.attachAttackListener(boardNodes);
+function initAiOpponentDom() {
+    const enemyBoard = gameBoard();
+    const GBEnemyPlayer = new gameBoardDom("#gamegrid-enemy", enemyBoard, shipsInfo);
+    const enemyController = cpuPlayer(enemyBoard);
+
+    enemyController.autoPlaceShips(shipsInfo);
+    console.log(enemyBoard.board);
+
+    GBEnemyPlayer.init();
+    GBEnemyPlayer.attachAttackListener("#gamegrid-enemy");
+}
