@@ -47,3 +47,5 @@ const dragDropCallback = () => {
 const boardNodes = document.querySelectorAll(".gamegrid-cell");
 const dragDropController = new DragDropShip(".DragDrop-main-cont", shipsInfo, boardNodes, GBDomPlayer, dragDropCallback);
 dragDropController.init();
+
+GBDomPlayer.attachAttackListener(boardNodes);

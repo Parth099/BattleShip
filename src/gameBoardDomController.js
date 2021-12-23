@@ -30,7 +30,6 @@ export default class gameBoardDom {
                 text.innerText = `${String.fromCharCode(96 + i + 1)}${j + 1}`;
                 text.classList.add("gamegrid-text");
                 text.classList.add("invis");
-
                 cell.addEventListener("mouseover", hoverInEvent);
                 cell.addEventListener("mouseout", hoverOutEvent);
                 attachPoint.appendChild(cell);
@@ -52,5 +51,26 @@ export default class gameBoardDom {
             }
         }
         return placementResult;
+    }
+    attachAttackListener(nodeList) {
+        const clickEvent = (e) => {
+            let node = e.target;
+            if (node.classList.contains("gamegrid-text")) {
+                //event bubbling causes issue here
+                node = e.target.parentNode;
+            }
+            let [x, y] = [node.dataset.x, node.dataset.y];
+            //this.receiveAttack(x, y);
+            this.receiveAttack(x, y, boardNode);
+        };
+
+        nodeList.forEach((node) => {
+            node.addEventListener("click", clickEvent);
+        });
+    }
+
+    receiveAttack(x, y, boardNode) {
+        const attackResult = this.gameBoard.receiveAttack(x, y);
+        console.log(attackResult);
     }
 }

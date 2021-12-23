@@ -107,14 +107,14 @@ it("ship is vertical at (3, 5)  L = 3", () => {
     expect(GB.placeShip(3, 5, shipLen, true)).toBe(true);
 
     const resultFire = [GB.receiveAttack(4, 5), GB.receiveAttack(5, 5), GB.receiveAttack(3, 5), GB.receiveAttack(1, 5), GB.receiveAttack(1, 5)];
-    expect(resultFire).toEqual([true, true, true, true, false]);
+    expect(resultFire).toEqual([1, 1, 1, 0, -1]);
     expect(GB.board[3][5]).toBe(-2); //hit
     expect(GB.board[4][5]).toBe(-2);
     expect(GB.board[5][5]).toBe(-2);
 
     expect(GB.board[1][5]).toBe(-1); //miss
 
-    expect(GB.receiveAttack(3, 5)).toBe(false);
+    expect(GB.receiveAttack(3, 5)).toBe(-1);
 });
 
 //isGameover testing:

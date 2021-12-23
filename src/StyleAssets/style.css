@@ -116,6 +116,9 @@ body {
 .dragDrop-ship.vertical {
     flex-direction: column;
 }
+.gamegrid-text {
+    cursor: default;
+}
 .gamegrid-text.invis {
     display: none;
 }

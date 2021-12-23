@@ -43,9 +43,10 @@ const gameBoard = () => {
     const receiveAttack = (x, y) => {
         const cellID = board[x][y];
         if (cellID < 0) {
-            return false;
+            return -1;
         } else if (cellID == 0) {
             board[x][y] = -1;
+            return 0;
         } else {
             const shipHit = shipMap.get(cellID);
             shipHit.hit();
@@ -57,7 +58,11 @@ const gameBoard = () => {
             board[x][y] = -2;
         }
         //can only return true since it will be a valid guess/move
-        return true;
+        return 1;
+        //key :
+        //  -1: invalid attack
+        //   0: miss
+        //   1: hit
     };
     const allShipsDown = () => shipMap.size === 0; //no need for O(n * n) search
 
