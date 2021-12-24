@@ -66,7 +66,12 @@ export default class gameBoardDom {
                 node = e.target.parentNode;
             }
             let [x, y] = [node.dataset.x, node.dataset.y];
-            //this.receiveAttack(x, y);
+
+            //rare event when user clicks between boxes
+            if (typeof x === "undefined" || typeof y === "undefined") {
+                return;
+                //they can simply try again
+            }
             this.receiveAttack(x, y, node);
         };
 
@@ -80,7 +85,7 @@ export default class gameBoardDom {
         if (attackResult > 0) {
             boardNode.classList.add("hit");
 
-            //this field will be invalid Enemy ships which cannot be seen on the DOM
+            //this field will be for the Enemy DOM side
             if (boardNode.dataset.ship) {
                 let shipDataObj = this.shipsInfoMap.get(boardNode.dataset.ship);
                 boardNode.classList.remove(shipDataObj.colorClass);
