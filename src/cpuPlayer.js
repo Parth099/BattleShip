@@ -32,9 +32,8 @@ const cpuPlayer = (boardObj, playerGrid, GBDomPlayer) => {
         while (!attackSent) {
             x = getRandomInt(BOARD_SIZE);
             y = getRandomInt(BOARD_SIZE);
-            attackSent = updateDOM(x, y);
+            attackSent = updateDOM(x, y) >= 0;
         }
-        console.log("sent: ", x, y);
     };
 
     const updateDOM = (x, y) => {

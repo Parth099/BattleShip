@@ -3,7 +3,8 @@ export default class gameBoardDom {
         this.domString = domString;
         this.boardSize = 10;
         this.gameBoard = gameBoard;
-
+        this.canGetAttacked = false;
+        this.attackCallback = () => {};
         this.shipsInfoMap = new Map();
         shipsInfo.forEach((s) => this.shipsInfoMap.set(s.shipName, s));
     }
@@ -81,7 +82,11 @@ export default class gameBoardDom {
     }
 
     receiveAttack(x, y, boardNode) {
+        if (!this.canGetAttacked) {
+            return;
+        }
         const attackResult = this.gameBoard.receiveAttack(x, y);
+        //callback
         if (attackResult > 0) {
             boardNode.classList.add("hit");
 
@@ -93,10 +98,9 @@ export default class gameBoardDom {
         } else if (attackResult == 0) {
             boardNode.classList.add("miss");
         }
-
         if (attackResult >= 0) {
-            return true;
+            this.attackCallback();
         }
-        return false;
+        return attackResult;
     }
 }
