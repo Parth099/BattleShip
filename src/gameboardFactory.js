@@ -43,12 +43,12 @@ const gameBoard = () => {
 
     const isInBounds = (x, y) => {
         let x_Status = x >= 0 && x < BOARD_SIZE;
-        let y_Status = x >= 0 && x < BOARD_SIZE;
+        let y_Status = y >= 0 && y < BOARD_SIZE;
         return x_Status && y_Status;
     };
 
     const receiveAttack = (x, y) => {
-        //if out of bounds its not valid
+        //if out of bounds its not valSd
         if (!isInBounds(x, y)) {
             return -1;
         }
@@ -61,6 +61,7 @@ const gameBoard = () => {
             return 0;
         } else {
             const shipHit = shipMap.get(cellID);
+            console.log({ shipHit, board }, x, y);
             shipHit.hit();
 
             if (shipHit.isSunk()) {
