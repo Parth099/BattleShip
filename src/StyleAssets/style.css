@@ -150,3 +150,14 @@ body {
 .hit {
     background-color: #fc4444;
 }
+.winner-cont {
+    width: 50%;
+    margin: 10px auto;
+    color: black;
+    padding: 12px 20px;
+    background: var(--theme2);
+
+    font-family: "CasanovaScotia", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    text-align: center;
+}

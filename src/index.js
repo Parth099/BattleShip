@@ -107,5 +107,7 @@ function startGame(p1, p2, enemyController) {
 
 function displayWinner(userWin) {
     const winStr = userWin ? "You" : "The Enemy";
-    console.log(`${winStr} won`);
+    const winnerContainer = document.querySelector(".winner-cont");
+    winnerContainer.classList.remove("void");
+    winnerContainer.querySelector("#winner-output").innerHTML = `${winStr} won!`;
 }
