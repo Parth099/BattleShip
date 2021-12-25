@@ -61,7 +61,6 @@ const gameBoard = () => {
             return 0;
         } else {
             const shipHit = shipMap.get(cellID);
-            console.log({ shipHit, board }, x, y);
             shipHit.hit();
 
             if (shipHit.isSunk()) {
@@ -83,7 +82,7 @@ const gameBoard = () => {
         shipMap.set(shipID, shipToHash);
     };
 
-    return { placeShip, receiveAttack, allShipsDown, board };
+    return { placeShip, receiveAttack, allShipsDown };
 };
 
 module.exports = gameBoard;
