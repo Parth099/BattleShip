@@ -5,10 +5,15 @@ GBDomPlayer: to send attacks over without having to spend time binding function 
 */
 const cpuPlayer = (boardObj, playerGrid, GBDomPlayer) => {
     //gens random from [0 ... max - 1]
-
+    const attackCallStack = []; //we can use an array-based stack
     const BOARD_SIZE = 10;
+
     const getRandomInt = (max) => {
         return Math.floor(Math.random() * max);
+    };
+
+    const getRandomIntPair = (max) => {
+        return [getRandomInt(max), getRandomInt(max)];
     };
 
     const autoPlaceShips = (shipData) => {
@@ -16,8 +21,7 @@ const cpuPlayer = (boardObj, playerGrid, GBDomPlayer) => {
         for (ship of shipData) {
             let shipPlaced = false;
             while (!shipPlaced) {
-                let x = getRandomInt(BOARD_SIZE);
-                let y = getRandomInt(BOARD_SIZE);
+                let [x, y] = getRandomIntPair(BOARD_SIZE);
                 let isVert = getRandomInt(2); //[0, 1]
 
                 //params: x, y, shipLength, isVert
@@ -28,11 +32,24 @@ const cpuPlayer = (boardObj, playerGrid, GBDomPlayer) => {
 
     const sendAttack = () => {
         let attackSent = false;
-        let x, y;
+        var x, y;
         while (!attackSent) {
-            x = getRandomInt(BOARD_SIZE);
-            y = getRandomInt(BOARD_SIZE);
-            attackSent = updateDOM(x, y) >= 0;
+            if (attackCallStack.length) {
+                var { x, y } = attackCallStack.pop();
+                attackSent = updateDOM(x, y);
+            } else {
+                var [x, y] = getRandomIntPair(BOARD_SIZE);
+                attackSent = updateDOM(x, y);
+            }
+            if (attackSent > 0) {
+                //attack was a hit now look around it
+                let [x0, y0] = [x, y];
+                attackCallStack.push({ x: x0 + 1, y: y0 });
+                attackCallStack.push({ x: x0, y: y0 + 1 });
+                attackCallStack.push({ x: x0 - 1, y: y0 });
+                attackCallStack.push({ x: x0, y: y0 - 1 });
+            }
+            attackSent = attackSent >= 0;
         }
     };
 

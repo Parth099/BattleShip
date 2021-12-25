@@ -40,7 +40,19 @@ const gameBoard = () => {
         }
         return isPlaced;
     };
+
+    const isInBounds = (x, y) => {
+        let x_Status = x >= 0 && x < BOARD_SIZE;
+        let y_Status = x >= 0 && x < BOARD_SIZE;
+        return x_Status && y_Status;
+    };
+
     const receiveAttack = (x, y) => {
+        //if out of bounds its not valid
+        if (!isInBounds(x, y)) {
+            return -1;
+        }
+
         const cellID = board[x][y];
         if (cellID < 0) {
             return -1;
